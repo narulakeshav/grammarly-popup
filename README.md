@@ -3,7 +3,7 @@ This was actually really fun. Learning how to use the `getSelection()` method fr
 
 This was a challenge by Grammarly.
 
-![Grammarly Popup Screenshot GIF](https://i.imgur.com/EFELszA.gifv)
+![Grammarly Popup Screenshot GIF](https://i.imgur.com/7vGVncY.gif)
 
 ## Logic
 
