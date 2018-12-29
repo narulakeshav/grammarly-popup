@@ -19,7 +19,7 @@ interface IProps {
 // State
 interface IState {
 	readonly apiKey: string;
-	gifId: string;
+	gifId?: string;
 }
 
 // GIPHY ENDPOINT
@@ -48,26 +48,34 @@ class Tooltip extends React.PureComponent<IProps, IState> {
 			const URL = `${ENDPOINT}?q=${term}&api_key=${apiKey}`;
 			const res = await axios.get(URL);
 
-			if (res.status === 200) {
-				this.setState({
-					gifId: res.data.data[0].id
-				});
-			}
+			const gifId = (res.status === 200 && res.data.data[0])
+				? res.data.data[Math.floor(Math.random() * res.data.data.length)].id
+				: 'mq5y2jHRCAqMo'; // window xp error dialog :p
+			
+			this.setState({
+				gifId
+			});
 		}
+	}
+
+	/**
+	 * Sets Tooltip image
+	 * @param {string} term
+	 */
+	public setTooltip = (term: string): React.ReactElement<HTMLImageElement> => {
+		const { gifId } = this.state;
+		const SRC = `https://media.giphy.com/media/${gifId}/giphy.gif`;
+		// @ts-ignore
+		return <TooltipGif src={SRC} alt={term} />;
 	}
 
 	// Render
 	public render() {
 		const { term, x, y } = this.props;
-		const { gifId } = this.state;
-		const SRC = `https://media.giphy.com/media/${gifId}/giphy.gif`;
 
-		return (
-			// @ts-ignore
-			<TooltipWrapper top={y} left={x}>
-				<TooltipGif src={SRC} alt={term} />
-			</TooltipWrapper>
-		);
+		return (this.state.gifId !== '')
+			? <TooltipWrapper top={y} left={x}>{this.setTooltip(term)}</TooltipWrapper>
+			: null;
 	}
 }
 

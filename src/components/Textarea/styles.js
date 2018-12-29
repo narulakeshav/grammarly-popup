@@ -15,6 +15,7 @@ export const TextareaEl = styled(ReactTextrea)`
 	border-radius: 4px;
 	box-shadow: none;
 	border: none;
+	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 	padding: 1rem;
 	font: 400 16px 'SF Pro Text';
